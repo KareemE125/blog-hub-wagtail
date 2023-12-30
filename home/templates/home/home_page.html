@@ -2,7 +2,6 @@
 {% load static %}
 {% load wagtailcore_tags wagtailimages_tags  %}
 
-
 {% block content %}
 
     <h1>{{page.title}}</h1>
@@ -16,7 +15,12 @@
             </div>
             {{page.image.title}}
         </div>
-        <span class="block mt-12 w-full text-sm text-end">Visit: <a class="underline text-blue-600" href="{% pageurl page.callToAction %}">{{page.callToAction}}</a></span>
+        {% if page.callToAction %}
+            <span class="block mt-12 w-full text-xs text-end text-gray-300">
+                Visit:
+                <a class="underline text-blue-600" href="{% pageurl page.callToAction %}">{{page.callToAction}}</a>
+            </span>
+        {% endif %}
 
     </section>
 
