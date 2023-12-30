@@ -1,2 +1,2 @@
-# Blog Hub / Wagtail
-Blogs Project using wagtail and bootstrap 🐍🕊
+# Blog Hub / Wagtail 🐍🕊
+Blogs Project using Wagtail and TailwindCss 
