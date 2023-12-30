@@ -1,22 +1,24 @@
-*{
-    box-sizing: border-box;
-    margin: 0px;
-    padding: 0px;
-}
-
-main{
-    padding: 12px 24px;
-}
-
 h1, h2, h3, h4, h5, h6{
-    margin-bottom: 12px;
+    margin-bottom: 12px !important;
 }
+
+h1{
+    font-size: 2.5rem !important;
+}
+h2{
+    font-size: 2rem !important;
+}
+h3{
+    font-size: 1.75rem !important;
+}
+h4{
+    font-size: 1.5rem !important;
+}
+h5{
+    font-size: 1.25rem !important;
+}
+
 
 p, span, a, li, label, input, textarea, select, button{
-    margin-bottom: 8px;
-}
-
-img{
-    border-radius: 25px;
-    padding: 10px;
+    margin-bottom: 8px !important;
 }
