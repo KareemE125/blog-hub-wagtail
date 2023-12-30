@@ -1,2 +1,2 @@
-# learn-wagtail
-A Project to learn wagtail 🐍🕊
+# Blog Hub / Wagtail
+Blogs Project using wagtail and bootstrap 🐍🕊
