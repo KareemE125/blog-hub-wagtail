@@ -1,0 +1,22 @@
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+main{
+    padding: 12px 24px;
+}
+
+h1, h2, h3, h4, h5, h6{
+    margin-bottom: 12px;
+}
+
+p, span, a, li, label, input, textarea, select, button{
+    margin-bottom: 8px;
+}
+
+img{
+    border-radius: 25px;
+    padding: 10px;
+}
