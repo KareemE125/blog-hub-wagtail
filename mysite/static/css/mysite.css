@@ -28,3 +28,28 @@ h5{
 p, label, input, textarea, select, button{
     margin-bottom: 8px !important;
 }
+
+
+/* Modern scroll bar style */
+/* width */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #4e4e4e; 
+
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #000a8d;
+    border-radius: 99px; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #000ba7; 
+}
