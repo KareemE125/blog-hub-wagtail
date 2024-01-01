@@ -1,6 +1,7 @@
 # myapp/templatetags/custom_tags.py
 from django import template
 from wagtail.models import Page
+
 register = template.Library()
 
 @register.inclusion_tag('navbar.html', takes_context=True)
