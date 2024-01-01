@@ -20,9 +20,14 @@
                 <li>
                     <a 
                         href="{% pageurl page %}" 
-                        class=" {% if current_path ==  page.url %}text-blue-700 font-semibold{% else %}text-white{% endif %} hover:text-blue-700 font-normal hover:font-semibold"
+                        class=" {% if current_path ==  page.url %}text-blue-700 font-bold{% else %}text-white font-normal{% endif %} text-lg hover:text-blue-700 hover:font-semibold"
                     >
-                        {{ page.slug | capfirst }}
+                        {% if page.title == "Blog Hub" %}
+                            Home
+                        {% else %}
+                            {{ page.title | capfirst }}
+                        {% endif %}
+                        
                     </a>
                 </li>                
             {% endfor %}

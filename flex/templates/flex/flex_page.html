@@ -1,6 +1,9 @@
 {% extends "base.html" %}
-
+{% load wagtailcore_tags %}
 {% block content %}
-    <h1>Flex</h1>
-    <p> Welcome to the Flex page!</p>
+    <h1>{{page.title}}</h1>
+    <p class="text-2xl">{{page.subTitle}}</p>
+    {% for block in page.content %}
+        {% include_block block %}
+    {% endfor %}
 {% endblock content %}
