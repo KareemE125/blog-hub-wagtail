@@ -29,8 +29,10 @@ INSTALLED_APPS = [
     "flex",
     "streams",
     "site_settings",
+    "subscriber",
     
     "wagtail.contrib.forms",
+    'wagtail.contrib.modeladmin',
     "wagtail.contrib.redirects",
     "wagtail.contrib.settings",
     "wagtail.embeds",
@@ -172,3 +174,5 @@ WAGTAILSEARCH_BACKENDS = {
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 WAGTAILADMIN_BASE_URL = "http://example.com"
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
