@@ -3,5 +3,9 @@
     <p class="text-xl pb-2">{{self.title}}</p>
     <hr><br>
     <p>{{self.text}}</p>
+    {% if self.richText %}
+    <br>
+    {{self.richText}}
+    {% endif %}
 </section>
 

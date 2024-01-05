@@ -11,6 +11,7 @@ class FlexPage(Page):
 
     content = StreamField([ 
             ("title_and_text", blocks.TitleAndTextBlock()), 
+            ("cards_list", blocks.CardsBlock()),
         ],use_json_field=True, blank=True, null=True)
     
     subTitle = models.CharField(max_length=100, blank=True, null=True) 
