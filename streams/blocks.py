@@ -2,7 +2,7 @@ from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
 class TitleAndTextBlock(blocks.StructBlock):
-    
+       
     title = blocks.CharBlock(required=True, help_text='Add your title')
     text = blocks.TextBlock(required=True, help_text='Add additional text')
     richText = blocks.RichTextBlock(required=False, help_text='Add additional rich text')
@@ -14,6 +14,7 @@ class TitleAndTextBlock(blocks.StructBlock):
         
         
 class CardsBlock(blocks.StructBlock):
+    
     title = blocks.CharBlock(required=True, help_text='Add your title')
     cards = blocks.ListBlock(
         blocks.StructBlock(

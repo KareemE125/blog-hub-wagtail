@@ -1,26 +1,26 @@
 {% load wagtailcore_tags wagtailimages_tags %}
+
 <section>
+    <br><hr><hr><br>
     <h2>{{self.title}}</h2>
     <div class="grid grid-cols-3 gap-6">
         {% for card in self.cards %}
-            <div class="flex flex-col gap-4 rounded-lg bg-white text-black">
-                <div class="w-full h-20 md:h-32 lg:h-48 bg-black rounded-t-lg">
-                    <div class="w-full h-full bg-black rounded-t-lg flex overflow-hidden flex justify-center">
-                        {% image card.image width-250 as card_image %}
-                        <img  class="h-full" src="{{ card_image.url }}" alt="{{ card_image.title }}">
-                    </div>
-                </div>
-                <div class="h-full p-2 text-black flex flex-col justify-between">
+            <div class="flex flex-col rounded-lg bg-white text-black">
+                <section class="w-full h-36 md:h-40 lg:h-44 bg-black rounded-t-lg flex overflow-hidden flex justify-center">
+                    {% image card.image width-250 as card_image %}
+                    <img  src="{{ card_image.url }}" alt="{{ card_image.title }}">
+                </section>
+                <section class="h-[290] pt-2 px-4 pb-0 text-black relative">
                     <h4 class="text-black font-semibold !mb-1">{{card.title}}</h4>
-                    {{card.body}}
-                    <div class="pt-6 self-end">
+                    {{ card.body }}
+                    <div class="absolute bottom-3 right-3">
                         {% if card.button_page %}
                             <a class="underline text-blue-600 no-underline" target="_blank" href="{% pageurl card.button_page %}">{{card.button_page}}</a>
                         {% elif card.button_url %}
                             <a class="underline text-blue-600 no-underline" target="_blank" href="{{ card.button_url }}">visit website</a>
                         {% endif %}
                     </div>
-                </div>
+                </section>
             </div>
         {% endfor %}
     </div>

@@ -20,3 +20,4 @@ class FlexPage(Page):
         FieldPanel('subTitle'),
         FieldPanel('content'),
     ]
+    
