@@ -9,4 +9,4 @@ def render_navbar(context):
     request = context['request']
     pages = Page.objects.live().public().exclude(depth=1)
     
-    return {'pages': pages, "current_path": request.path }
+    return {'pages': pages, "current_path": request.path, "request": request }

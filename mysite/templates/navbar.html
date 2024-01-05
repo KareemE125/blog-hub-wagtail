@@ -1,16 +1,15 @@
-{% load wagtailcore_tags  %}
-
-
+{% load wagtailsettings_tags wagtailcore_tags  %}
+{% get_settings %}
 
 <nav class="md:max-w-[1300px] m-auto fixed z-50 rounded-xl top-2 right-4 left-4 bg-white border-gray-200 dark:bg-gray-900">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4 px-6">
-      <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
+      <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
           <img src="https://flowbite.com/docs/images/logo.svg" alt="Flowbite Logo" />
           <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">BLOG HUB</span>
       </a>
       <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
-          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+          <svg class="w-5 h-5" aria-hidden="true"  fill="none" viewBox="0 0 17 14">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
           </svg>
       </button>
@@ -31,6 +30,40 @@
                     </a>
                 </li>                
             {% endfor %}
+
+            {% with socailSettings=settings.site_settings.SocialMediaSettings %}
+                {% if socailSettings.facebook or socailSettings.linkedin or socailSettings.youtube  %}
+                    <div class="bg-gray-300 w-0.5 h-9 rounded-lg"></div>
+
+                    <div class="flex gap-4 justify-center items-center">
+                        {% if socailSettings.facebook %}
+                        <a href="{{socailSettings.facebook}}" target="_blank">
+                            <svg class="w-[22] h-[22] bg-blue-700 rounded-full p-1 pb-0" aria-hidden="true"  viewBox="0 0 8 19">
+                                <path style="fill: #fff;" fill-rule="evenodd" d="M6.135 3H8V0H6.135a4.147 4.147 0 0 0-4.142 4.142V6H0v3h2v9.938h3V9h2.021l.592-3H5V3.591A.6.6 0 0 1 5.592 3h.543Z" clip-rule="evenodd"/>
+                            </svg>
+                        </a>
+                        {% endif %}
+
+                        {% if socailSettings.linkedin %}
+                        <a href="{{socailSettings.linkedin}}" target="_blank">
+                            <svg class="w-5 h-5" aria-hidden="true"  viewBox="0 0 15 15">
+                                <path style="fill: #0a66c2;"  fill-rule="evenodd" d="M7.979 5v1.586a3.5 3.5 0 0 1 3.082-1.574C14.3 5.012 15 7.03 15 9.655V15h-3v-4.738c0-1.13-.229-2.584-1.995-2.584-1.713 0-2.005 1.23-2.005 2.5V15H5.009V5h2.97ZM3 2.487a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" clip-rule="evenodd"/>
+                                <path style="fill: #0a66c2;" d="M3 5.012H0V15h3V5.012Z"/>
+                            </svg>
+                        </a>
+                        {% endif %}
+
+                        {% if socailSettings.youtube %}
+                        <a href="{{socailSettings.youtube}}" target="_blank">
+                            <svg class="w-5 h-5 mt-1" aria-hidden="true"  viewBox="0 0 20 14">
+                                <path style="fill: #ff0000;"  fill-rule="evenodd" d="M19.7 3.037a4.26 4.26 0 0 0-.789-1.964 2.84 2.84 0 0 0-1.984-.84c-2.767-.2-6.926-.2-6.926-.2s-4.157 0-6.928.2a2.836 2.836 0 0 0-1.983.84A4.225 4.225 0 0 0 .3 3.038a30.148 30.148 0 0 0-.2 3.206v1.5c.01 1.071.076 2.142.2 3.206.094.712.363 1.39.784 1.972.604.536 1.38.837 2.187.848 1.583.15 6.731.2 6.731.2s4.161 0 6.928-.2a2.844 2.844 0 0 0 1.985-.84 4.27 4.27 0 0 0 .787-1.965c.124-1.064.19-2.135.2-3.206V6.243a30.672 30.672 0 0 0-.202-3.206ZM8.008 9.59V3.97l5.4 2.819-5.4 2.8Z" clip-rule="evenodd"/>
+                            </svg>                
+                        </a>
+                        {% endif %}
+
+                    </div>
+                {% endif %}
+            {% endwith %}
         </ul>
       </div>
     </div>
