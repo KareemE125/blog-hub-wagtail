@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<section class="flex flex-col">
+    <h2>{{page.custom_title}}</h2>
+
+    <div class="">
+        {% for blog in blogs %}
+        <section class="relative">
+            {% include "blog/blog_card.html" with blog=blog not_detail=True %}
+            <br>
+            <a href="{% pageurl blog %}">
+                <svg class="group cursor-pointer w-4 h-4 p-1 pl-0.5 bg-white rounded-tr-sm w-6 h-6 absolute -right-0 -top-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+                    <path class="text-blue-800 group-hover:text-blue-400" d="M17 0h-5.768a1 1 0 1 0 0 2h3.354L8.4 8.182A1.003 1.003 0 1 0 9.818 9.6L16 3.414v3.354a1 1 0 0 0 2 0V1a1 1 0 0 0-1-1Z"/>
+                    <path class="text-blue-800 group-hover:text-blue-400" d="m14.258 7.985-3.025 3.025A3 3 0 1 1 6.99 6.768l3.026-3.026A3.01 3.01 0 0 1 8.411 2H2.167A2.169 2.169 0 0 0 0 4.167v11.666A2.169 2.169 0 0 0 2.167 18h11.666A2.169 2.169 0 0 0 16 15.833V9.589a3.011 3.011 0 0 1-1.742-1.604Z"/>
+                  </svg>
+            </a>
+        </section>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock content %}

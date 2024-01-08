@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+    {% include "blog/blog_card.html" with blog=page %}
+{% endblock content %}

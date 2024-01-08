@@ -7,6 +7,6 @@ register = template.Library()
 @register.inclusion_tag('navbar.html', takes_context=True)
 def render_navbar(context):
     request = context['request']
-    pages = Page.objects.live().public().exclude(depth=1)
+    pages = Page.objects.live().public().exclude(depth__in=[1, 4])
     
     return {'pages': pages, "current_path": request.path, "request": request }

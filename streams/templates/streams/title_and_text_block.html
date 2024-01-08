@@ -1,11 +1,10 @@
-<section class="my-6 p-4 rounded-lg border-2 relative">
+<section class="p-4 rounded-lg border-2 relative">
     <div class="bg-white rounded-full w-5 h-5 absolute -left-2 -top-2"></div>
-    <p class="text-xl pb-2">{{self.title}}</p>
-    <hr><br>
-    <p>{{self.text}}</p>
+    <p class="text-3xl pb-2">{{self.title}}</p>
+    <hr>
+    <p class="text-xl py-2">{{self.text}}</p>
     {% if self.richText %}
-    <br>
-    {{self.richText}}
+    <div class="pl-3">{{self.richText}}</div>
     {% endif %}
 </section>
 

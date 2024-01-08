@@ -1,0 +1,31 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+
+
+<section class="{% if not_detail %} p-4 pt-2 rounded-lg border-2{% endif %} relative">
+    {% if not_detail %}
+    <div class="bg-white rounded-full w-5 h-5 absolute -left-2 -top-2"></div>
+    {% endif %}
+    <section class="flex flex-col">
+        <h1>{{blog.custom_title}}</h1>
+        <div class="rounded-lg w-fit overflow-hidden mb-4 self-center">
+            {% if not_detail %}
+                {% image blog.image width-450 %}
+            {% else %}
+                {% image blog.image fill-900x400 %}
+            {% endif %}
+        </div>
+        <div class="">
+            {% if not_detail %}
+                {% include_block blog.content.0 %}
+            {% else %}
+                {% for block in blog.content %}
+                    {% if forloop.counter > 1 %}
+                    <div class="w-[90%] h-0.5 m-auto bg-white my-3"></div>
+                    {% endif %}
+                    {% include_block block %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </section>
+</section>
