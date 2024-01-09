@@ -1,14 +1,38 @@
 from django.db import models
 
 from wagtail.models import Page
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import StreamField
-from wagtail.contrib.routable_page.models import RoutablePageMixin, path, re_path
+from wagtail.snippets.models import register_snippet
+from wagtail.contrib.routable_page.models import RoutablePageMixin, path
 
 from streams import blocks
 
-# Create your models here.
+# Snippet Models
+class Author(models.Model):
+    name = models.CharField(max_length=100, blank=False, null=False)
+    image = models.ForeignKey("wagtailimages.Image", null=True, blank=True, on_delete=models.SET_NULL, related_name="+")
+    
+    panels = [
+        MultiFieldPanel([
+            FieldPanel("name"),
+            FieldPanel("image"),
+        ], heading="Author's Name and Image"),
+    ]
+    
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = "Author"
+        verbose_name_plural = "Authors"
 
+
+register_snippet(Author)
+
+
+
+# Pages
 class BlogsPage(RoutablePageMixin, Page):
     custom_title = models.CharField(max_length=100, blank=False, null=False, help_text='Custom title for the blog detail page')
 
