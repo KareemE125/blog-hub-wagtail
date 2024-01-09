@@ -77,8 +77,8 @@ class BlogsPage(RoutablePageMixin, Page):
         context["blogs"] = BlogDetailPage.objects.live().public().order_by('-last_published_at')
         context["categories"] = Category.objects.all()
         
-        if(category_filter):
-            context["blogs"] = context["blogs"].filter(categories__name__contains=category_filter)
+        if(category_filter and category_filter != "all"):
+            context["blogs"] = context["blogs"].filter(categories__slug__exact=category_filter)
             
         return context
     

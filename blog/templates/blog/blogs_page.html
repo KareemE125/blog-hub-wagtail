@@ -20,8 +20,11 @@
     <section class="mb-6">
         <h4 class="text-2xl font-semibold">Categories</h4>
         <div class="flex gap-4">
+            <a class="{% if request.GET.category == "all" %}bg-blue-600{%else%}bg-[#004d68]{% endif %} hover:bg-blue-600 rounded-lg px-4 py-1" href="?category=all">
+                <p class="!mb-0">All</p>
+            </a>
             {% for category in categories %}
-                <a class="hover:bg-blue-600 rounded-lg bg-[#004d68] px-4 py-1" href="?category={{category.slug}}">
+                <a class="{% if request.GET.category == category.slug %}bg-blue-600{%else%}bg-[#004d68]{% endif %} hover:bg-blue-600 rounded-lg  px-4 py-1" href="?category={{category.slug}}">
                     <p class="!mb-0">{{category.name}}</p>
                 </a>
             {% endfor %}
