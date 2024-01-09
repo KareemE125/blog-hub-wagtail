@@ -71,9 +71,15 @@ class BlogsPage(RoutablePageMixin, Page):
     
     
     def get_context(self, request, *args, **kwargs):
+        category_filter = request.GET.get('category')
+        
         context = super().get_context(request, *args, **kwargs)
         context["blogs"] = BlogDetailPage.objects.live().public().order_by('-last_published_at')
+        context["categories"] = Category.objects.all()
         
+        if(category_filter):
+            context["blogs"] = context["blogs"].filter(categories__name__contains=category_filter)
+            
         return context
     
     
