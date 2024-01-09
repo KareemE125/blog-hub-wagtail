@@ -1,10 +1,11 @@
 from django.db import models
 
-from wagtail.models import Page
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.models import Page, Orderable
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.fields import StreamField
 from wagtail.snippets.models import register_snippet
 from wagtail.contrib.routable_page.models import RoutablePageMixin, path
+from modelcluster.fields import ParentalKey
 
 from streams import blocks
 
@@ -27,10 +28,17 @@ class Author(models.Model):
         verbose_name = "Author"
         verbose_name_plural = "Authors"
 
-
 register_snippet(Author)
 
 
+class AuthorOrderable(Orderable):
+    page = ParentalKey("blog.BlogDetailPage", related_name="blog_authors")
+    author = models.ForeignKey("blog.Author", on_delete=models.CASCADE, related_name="+")
+    
+    panels = [
+        FieldPanel("author"),
+    ]
+    
 
 # Pages
 class BlogsPage(RoutablePageMixin, Page):
@@ -84,6 +92,9 @@ class BlogDetailPage(Page):
         FieldPanel('custom_title'),
         FieldPanel('image'),
         FieldPanel('content'),
+        MultiFieldPanel([
+            InlinePanel('blog_authors', label="Author", min_num=1),
+        ], heading="Author(s)"),
     ]
     
     

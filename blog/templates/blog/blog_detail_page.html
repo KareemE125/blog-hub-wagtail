@@ -1,7 +1,29 @@
 {% extends "base.html" %}
 
+{% load static %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
+
 {% block content %}
-    {% include "blog/blog_card.html" with blog=page %}
+    <section class="flex flex-col gap-6">
+        {% include "blog/blog_card.html" with blog=page %}
+  
+        <hr>
+        <section>
+            <h3 class="text-2xl font-semibold">Authors</h3>
+            <div class="flex gap-4">
+                {% for author in page.blog_authors.all %}
+                    <div class="flex gap-2 items-center  rounded-full bg-[#004d68] p-0.5 pr-4">
+                        {% if author.author.image %}
+                        {% image author.author.image width-200 as img  %}
+                        <img class="rounded-full w-12" src="{{ img.url }}" alt="{{ img.alt }}">
+                        {% else %}
+                        <img class="rounded-full w-12" src="{% static 'images/default-profile.png' %}" alt="Default Profile Image">
+                        {% endif %}
+                        <p class="!mb-0">{{author.author.name}}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    </section>
 {% endblock content %}
