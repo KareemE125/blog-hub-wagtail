@@ -1,5 +1,6 @@
 from django.db import models
 from django import forms
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from wagtail.models import Page, Orderable
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
@@ -74,7 +75,22 @@ class BlogsPage(RoutablePageMixin, Page):
         category_filter = request.GET.get('category')
         
         context = super().get_context(request, *args, **kwargs)
-        context["blogs"] = BlogDetailPage.objects.live().public().order_by('-first_published_at')
+        
+        # context["blogs"] = BlogDetailPage.objects.live().public().order_by('-first_published_at')
+        # Pagination
+        blogs = BlogDetailPage.objects.live().public().order_by('-first_published_at')
+        paginator = Paginator(blogs, 1)
+        page = request.GET.get("page")
+        try:
+            blogs = paginator.page(page)
+        except PageNotAnInteger:
+            blogs = paginator.page(1)
+        except EmptyPage:
+            blogs = paginator.page(paginator.num_pages)
+        
+        context["blogs"] = blogs
+        
+        
         context["categories"] = Category.objects.all()
         
         if(category_filter and category_filter != "all"):
