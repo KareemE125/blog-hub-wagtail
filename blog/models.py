@@ -74,7 +74,7 @@ class BlogsPage(RoutablePageMixin, Page):
         category_filter = request.GET.get('category')
         
         context = super().get_context(request, *args, **kwargs)
-        context["blogs"] = BlogDetailPage.objects.live().public().order_by('-last_published_at')
+        context["blogs"] = BlogDetailPage.objects.live().public().order_by('-first_published_at')
         context["categories"] = Category.objects.all()
         
         if(category_filter and category_filter != "all"):
