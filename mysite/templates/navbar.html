@@ -1,13 +1,16 @@
 {% load wagtailsettings_tags wagtailcore_tags menus_tags %}
 {% get_settings %}
 
-<nav class="fixed top-24 right-0 max-w-56 rounded-xl bg-gray-900 py-2 px-4 text-sm">
-    <p class="font-semibold">Also Check</p>
-    <hr>
+<nav class="fixed top-24 right-0 max-w-56 rounded-l-xl bg-gray-900 p-2 text-sm">
+    <p class="font-semibold border-b-2">Also Check</p>
+    
     {% get_menu "main" as menu %}
     {% for item in menu.menu_items.all  %}
-        <a href="{{ item.link }}" {% if item.open_in_new_tab %}target="_blank"{% endif %} >
-            {{ item.title }}
+        <a  class="block w-full px-2 underline text-blue-500 hover:text-yellow-400" 
+            href="{{ item.link }}" 
+            {% if item.open_in_new_tab %}target="_blank"{% endif %} 
+        >
+            - {{ item.title | capfirst}}
         </a>
     {% endfor %}
 </nav>
