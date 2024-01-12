@@ -1,7 +1,17 @@
-{% load wagtailsettings_tags wagtailcore_tags  %}
+{% load wagtailsettings_tags wagtailcore_tags menus_tags %}
 {% get_settings %}
 
 <nav class="md:max-w-[1300px] m-auto fixed z-50 rounded-xl top-2 right-4 left-4 bg-white border-gray-200 dark:bg-gray-900">
+    
+    <section>
+    {% get_menu "main" as menu %}
+    {% for item in menu.menu_items.all  %}
+        {{ item.link_title }} <br>
+        {{ item.link }} <br>
+        <br><hr>
+    {% endfor %}
+    </section>
+    
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4 px-6">
       <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
           <img src="https://flowbite.com/docs/images/logo.svg" alt="Flowbite Logo" />
