@@ -32,13 +32,14 @@ class MenuItem(Orderable):
                 self.link_title = link
         super().save(*args, **kwargs) 
         
+    @property
     def link(self):
         if self.link_url:
             link = self.link_url
         elif self.link_page:
-            link = self.link_page
+            link = self.link_page.url
         else:
-            link = "/"
+            link = "#"
     
         return link
     
