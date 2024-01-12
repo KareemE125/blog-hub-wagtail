@@ -1,5 +1,6 @@
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
+from urllib.parse import urlparse
 
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
@@ -22,15 +23,6 @@ class MenuItem(Orderable):
         FieldPanel("link_page"),
         FieldPanel("open_in_new_tab"),
     ]
-    
-    def save(self, *args, **kwargs):
-        link = self.link()
-        if not self.link_title: 
-            if isinstance(link, Page):
-                self.link_title = self.link_page.title
-            else:
-                self.link_title = link
-        super().save(*args, **kwargs) 
         
     @property
     def link(self):
@@ -42,6 +34,23 @@ class MenuItem(Orderable):
             link = "#"
     
         return link
+    
+    @property
+    def title(self):
+        if not self.link_title:
+            if self.link_url: 
+                domain = urlparse(self.link_url).netloc
+                title = domain if domain else self.link_url
+            elif self.link_page:
+                title = self.link_page.title
+            else:
+                title = "Visit Site"
+        else:
+            title = self.link_title
+        
+        self.link_title = title
+        self.save()
+        return self.link_title
     
 
     

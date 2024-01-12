@@ -1,16 +1,18 @@
 {% load wagtailsettings_tags wagtailcore_tags menus_tags %}
 {% get_settings %}
 
-<nav class="md:max-w-[1300px] m-auto fixed z-50 rounded-xl top-2 right-4 left-4 bg-white border-gray-200 dark:bg-gray-900">
-    
-    <section>
+<nav class="fixed top-24 right-0 max-w-56 rounded-xl bg-gray-900 py-2 px-4 text-sm">
+    <p class="font-semibold">Also Check</p>
+    <hr>
     {% get_menu "main" as menu %}
     {% for item in menu.menu_items.all  %}
-        {{ item.link_title }} <br>
-        {{ item.link }} <br>
-        <br><hr>
+        <a href="{{ item.link }}" {% if item.open_in_new_tab %}target="_blank"{% endif %} >
+            {{ item.title }}
+        </a>
     {% endfor %}
-    </section>
+</nav>
+
+<nav class="md:max-w-[1300px] m-auto fixed z-50 rounded-xl top-2 right-4 left-4 bg-white border-gray-200 dark:bg-gray-900">
     
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4 px-6">
       <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
