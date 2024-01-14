@@ -1,17 +1,20 @@
-{% load wagtailsettings_tags wagtailcore_tags menus_tags %}
+{% load wagtailsettings_tags wagtailcore_tags menus_tags cache %}
 {% get_settings %}
+
 
 <nav class="fixed top-24 right-0 max-w-56 rounded-l-xl bg-gray-900 p-2 text-sm">
     <p class="font-semibold border-b-2">Also Check</p>
     
     {% get_menu "main" as menu %}
     {% for item in menu.menu_items.all  %}
+        {% cache 3600 navbar_hanging_preview %}
         <a  class="block w-full px-2 underline text-blue-500 hover:text-yellow-400" 
             href="{{ item.link }}" 
             {% if item.open_in_new_tab %}target="_blank"{% endif %} 
         >
             - {{ item.title | capfirst}}
         </a>
+        {% endcache %}
     {% endfor %}
 </nav>
 
@@ -30,6 +33,7 @@
       </button>
       <div class="hidden w-full md:block md:w-auto" id="navbar-default">
         <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            
             {% for page in pages %}
                 <li>
                     <a 
@@ -43,9 +47,10 @@
                         {% endif %}
                         
                     </a>
-                </li>                
+                </li>    
             {% endfor %}
 
+            {% cache 3600 navbar_socail_preview %}
             {% with socailSettings=settings.site_settings.SocialMediaSettings %}
                 {% if socailSettings.facebook or socailSettings.linkedin or socailSettings.youtube  %}
                     <div class="bg-gray-300 w-0.5 h-9 rounded-lg"></div>
@@ -79,7 +84,9 @@
                     </div>
                 {% endif %}
             {% endwith %}
+            {% endcache %}
         </ul>
       </div>
     </div>
   </nav>
+

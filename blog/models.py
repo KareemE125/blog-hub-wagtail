@@ -79,7 +79,7 @@ class BlogsPage(RoutablePageMixin, Page):
         # context["blogs"] = BlogDetailPage.objects.live().public().order_by('-first_published_at')
         # Pagination
         blogs = BlogDetailPage.objects.live().public().order_by('-first_published_at')
-        paginator = Paginator(blogs, 1)
+        paginator = Paginator(blogs, 2)
         page = request.GET.get("page")
         try:
             blogs = paginator.page(page)
