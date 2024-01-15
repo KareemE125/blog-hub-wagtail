@@ -6,16 +6,17 @@
     <p class="font-semibold border-b-2">Also Check</p>
     
     {% get_menu "main" as menu %}
+
+    {% cache 86400 navbar_hanging_preview %}
     {% for item in menu.menu_items.all  %}
-        {% cache 3600 navbar_hanging_preview %}
         <a  class="block w-full px-2 underline text-blue-500 hover:text-yellow-400" 
             href="{{ item.link }}" 
             {% if item.open_in_new_tab %}target="_blank"{% endif %} 
         >
             - {{ item.title | capfirst}}
         </a>
-        {% endcache %}
     {% endfor %}
+    {% endcache %}
 </nav>
 
 <nav class="md:max-w-[1300px] m-auto fixed z-50 rounded-xl top-2 right-4 left-4 bg-white border-gray-200 dark:bg-gray-900">

@@ -1,7 +1,7 @@
 {% load wagtailcore_tags wagtailimages_tags cache %}
 
 
-{% cache 5 blog_list_item_preview blog.id %}
+{% cache 86400 blog_item_preview blog.id %}
 <section class="{% if not_detail %} p-4 pt-2 rounded-lg border-2{% endif %} relative">
     {% if not_detail %}
     <div class="bg-white rounded-full w-5 h-5 absolute -left-2 -top-2"></div>

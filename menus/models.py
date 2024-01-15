@@ -1,4 +1,7 @@
 from django.db import models
+from django.core.cache import cache
+from django.core.cache.utils import make_template_fragment_key
+
 from django_extensions.db.fields import AutoSlugField
 from urllib.parse import urlparse
 
@@ -67,3 +70,10 @@ class Menu(ClusterableModel):
     
     def __str__(self):
         return self.title
+    
+    def save(self, *args, **kwargs):
+        cacheKey = make_template_fragment_key(
+            "navbar_hanging_preview",
+        )
+        cache.delete(cacheKey)
+        return super().save(*args, **kwargs)

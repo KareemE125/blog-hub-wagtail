@@ -160,4 +160,4 @@ __pycache__/
 *.log
 
 # cache
-.cache/
+/cache/

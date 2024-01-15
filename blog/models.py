@@ -1,6 +1,8 @@
 from django.db import models
 from django import forms
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.cache import cache
+from django.core.cache.utils import make_template_fragment_key
 
 from wagtail.models import Page, Orderable
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
@@ -144,6 +146,13 @@ class BlogDetailPage(Page):
         ], heading="Category(s)"),
     ]
     
+    def save(self, *args, **kwargs):
+        cacheKey = make_template_fragment_key(
+            "blog_item_preview",
+            [self.id],
+        )
+        cache.delete(cacheKey)
+        return super().save(*args, **kwargs)
     
     
     
