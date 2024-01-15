@@ -21,10 +21,11 @@ MIDDLEWARE = MIDDLEWARE + [
 
 INTERNAL_IPS = ("127.0.0.1")
 
+# Do Not forget to use your own cache location
 # CACHES = {
 #     'default': {
 #         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-#         "LOCATION": "D:/Kareem/KuwaitNet-Stack/Python/Django - Framework/wagtail-env/blog-hub-wagtail/cache"
+#         "LOCATION": "your_absoulte_path_for_project/cache"
 #     }
 # }
 
