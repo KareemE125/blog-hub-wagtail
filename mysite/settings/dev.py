@@ -22,12 +22,12 @@ MIDDLEWARE = MIDDLEWARE + [
 INTERNAL_IPS = ("127.0.0.1")
 
 # Do Not forget to use your own cache location
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-#         "LOCATION": "your_absoulte_path_for_project/cache"
-#     }
-# }
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        "LOCATION": "your_absoulte_path_for_project/cache"
+    }
+}
 
 try:
     from .local import *

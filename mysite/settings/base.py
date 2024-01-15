@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "wagtail.search",
     "wagtail.admin",
     "wagtail",
+    "wagtail.api.v2", 
     "modelcluster",
     "taggit",
     
@@ -59,6 +60,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sitemaps",
+    
+    "rest_framework"
 ]
 
 MIDDLEWARE = [

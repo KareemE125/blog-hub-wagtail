@@ -10,8 +10,11 @@ from wagtail.fields import StreamField
 from wagtail.snippets.models import register_snippet
 from wagtail.contrib.routable_page.models import RoutablePageMixin, path
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from wagtail.api import APIField
+
 
 from streams import blocks
+
 
 # Snippet Models
 @register_snippet
@@ -25,7 +28,7 @@ class Author(models.Model):
             FieldPanel("image"),
         ], heading="Author's Name and Image"),
     ]
-    
+        
     def __str__(self):
         return self.name
     
@@ -63,6 +66,10 @@ class AuthorOrderable(Orderable):
         FieldPanel("author"),
     ]
     
+    api_fields = [
+        APIField("author"),
+    ]
+    
 
 # Pages
 class BlogsPage(RoutablePageMixin, Page):
@@ -81,6 +88,9 @@ class BlogsPage(RoutablePageMixin, Page):
         # context["blogs"] = BlogDetailPage.objects.live().public().order_by('-first_published_at')
         # Pagination
         blogs = BlogDetailPage.objects.live().public().order_by('-first_published_at')
+        if(category_filter and category_filter != "all"):
+            blogs = blogs.filter(categories__slug__exact=category_filter)
+            
         paginator = Paginator(blogs, 2)
         page = request.GET.get("page")
         try:
@@ -90,13 +100,9 @@ class BlogsPage(RoutablePageMixin, Page):
         except EmptyPage:
             blogs = paginator.page(paginator.num_pages)
         
-        context["blogs"] = blogs
-        
-        
+        context["blogs"] = blogs    
         context["categories"] = Category.objects.all()
-        
-        if(category_filter and category_filter != "all"):
-            context["blogs"] = context["blogs"].filter(categories__slug__exact=category_filter)
+    
             
         return context
     
@@ -144,6 +150,14 @@ class BlogDetailPage(Page):
         MultiFieldPanel([
             FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
         ], heading="Category(s)"),
+    ]
+    
+    api_fields = [
+        APIField("custom_title"),
+        APIField("categories"),
+        APIField("content"),
+        APIField("image"),
+        APIField("blog_authors"),
     ]
     
     def save(self, *args, **kwargs):

@@ -18,7 +18,7 @@
     </div>
 
     <!-- Categories -->
-    {% cache 86400 blog_categories_preview %}
+    
     <section class="mb-6">
         <h4 class="text-2xl font-semibold">Categories</h4>
         <div class="flex gap-4">
@@ -32,10 +32,9 @@
             {% endfor %}
         </div>
     </section>
-    {% endcache %}
 
     <!-- Blogs -->
-    <div class="">
+    {% if blogs %}
         {% for blog in blogs %}
                 <section class="relative">
                     {% include "blog/blog_card.html" with blog=blog not_detail=True %}
@@ -48,7 +47,12 @@
                     </a>
                 </section>
         {% endfor %}
-    </div>
+    {% else %}
+        <section class="text-center my-6">
+            <h3 class="text-2xl font-semibold">"No Blogs Found"</h3>
+        </section>
+    {% endif %}
+   
 
     <!-- Pagination -->
     <div class="max-w-xl bg-gray-900 m-auto rounded-lg px-4 py-2 flex justify-center items-center gap-4 mt-6">
