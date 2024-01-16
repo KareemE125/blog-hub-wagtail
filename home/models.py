@@ -4,6 +4,7 @@ from modelcluster.fields import ParentalKey
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.api import APIField
 
 
 class CarouselImage(Orderable):
@@ -12,6 +13,10 @@ class CarouselImage(Orderable):
 
     panels = [
         FieldPanel("image")
+    ]
+    
+    api_fields = [
+        APIField('image'),
     ]
 
 
@@ -28,6 +33,13 @@ class HomePage(Page):
         FieldPanel('image'),
         FieldPanel('callToAction'),
         InlinePanel('carousel_images', label="Carousel images", max_num= 5)
+    ]
+    
+    api_fields = [
+        APIField('description'),
+        APIField('image'),
+        APIField('callToAction'),
+        APIField('carousel_images'),
     ]
     
     class Meta:

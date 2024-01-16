@@ -8,6 +8,7 @@ from wagtail.models import Page, Orderable
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.fields import StreamField
 from wagtail.snippets.models import register_snippet
+from wagtail.images.api.fields import ImageRenditionField
 from wagtail.contrib.routable_page.models import RoutablePageMixin, path
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from wagtail.api import APIField
@@ -28,6 +29,7 @@ class Author(models.Model):
             FieldPanel("image"),
         ], heading="Author's Name and Image"),
     ]
+
         
     def __str__(self):
         return self.name
@@ -66,8 +68,29 @@ class AuthorOrderable(Orderable):
         FieldPanel("author"),
     ]
     
+
+        
+    @property
+    def author_info(self):
+        return {
+            "id": self.author.id,
+            "name": self.author.name,
+            "image": {
+                "title": self.author.image.title,
+                "url": self.author.image.file.url,
+                "width": self.author.image.width,
+                "height": self.author.image.height,
+            } if self.author.image else None,
+        }
+        
+    # This additional "author_image" field is added just to use the "ImageRenditionField"
+    @property
+    def author_image(self):
+        return self.author.image
+    
     api_fields = [
-        APIField("author"),
+        APIField("author_info"),
+        APIField("author_image", serializer=ImageRenditionField('fill-200x200')),
     ]
     
 
