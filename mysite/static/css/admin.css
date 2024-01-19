@@ -1,0 +1,37 @@
+:root {
+    --main-bg-color: #343F4C;
+    --primary-color: #1C86BA;
+    --secondary-color: #36A3D9;
+}
+
+body {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+header {
+    background-color: var(--main-bg-color);
+    padding: 0 18px 24px 18px !important;
+    border-radius: 15px;
+}
+
+a {
+    color: var(--primary-color);
+}
+
+a:hover {
+    color: var(--secondary-color);
+}
+
+.button,
+header .button {
+    background-color: var(--primary-color);
+}
+
+.button:hover,
+.replace-file-input:hover button {
+    background-color: var(--secondary-color) !important;
+}
+
+.button-secondary {
+    color: var(--main-bg-color);
+}
