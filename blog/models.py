@@ -11,8 +11,9 @@ from wagtail.snippets.models import register_snippet
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.contrib.routable_page.models import RoutablePageMixin, path
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from taggit.models import TaggedItemBase
 from wagtail.api import APIField
-
 
 from streams import blocks
 
@@ -93,6 +94,9 @@ class AuthorOrderable(Orderable):
         APIField("author_image", serializer=ImageRenditionField('fill-200x200')),
     ]
     
+# Tags
+class Tag(TaggedItemBase):
+    content_object = ParentalKey('blog.BlogDetailPage', on_delete=models.CASCADE, related_name='tagged_items')
 
 # Pages
 class BlogsPage(RoutablePageMixin, Page):
@@ -111,9 +115,15 @@ class BlogsPage(RoutablePageMixin, Page):
         # context["blogs"] = BlogDetailPage.objects.live().public().order_by('-first_published_at')
         # Pagination
         blogs = BlogDetailPage.objects.live().public().order_by('-first_published_at')
-        if(category_filter and category_filter != "all"):
+        ## Category filtering
+        if(category_filter and category_filter != "all"): 
             blogs = blogs.filter(categories__slug__exact=category_filter)
             
+        ## Tag filtering
+        tag = request.GET.get('tag')
+        if(tag):
+            blogs = blogs.filter(tags__slug=tag)
+        
         paginator = Paginator(blogs, 2)
         page = request.GET.get("page")
         try:
@@ -157,6 +167,8 @@ class BlogDetailPage(Page):
         related_name="+"
     )
     
+    tags = ClusterTaggableManager(through=Tag, blank=True)
+    
     content = StreamField([ 
             ("title_and_text", blocks.TitleAndTextBlock()), 
             ("rich_paragraph", blocks.RichtextBlock()),
@@ -173,6 +185,9 @@ class BlogDetailPage(Page):
         MultiFieldPanel([
             FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
         ], heading="Category(s)"),
+        MultiFieldPanel([
+            FieldPanel('tags'),
+        ], heading="Tag(s)"),
     ]
     
     api_fields = [

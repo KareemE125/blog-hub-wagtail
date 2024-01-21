@@ -18,7 +18,6 @@
     </div>
 
     <!-- Categories -->
-    
     <section class="mb-6">
         <h4 class="text-2xl font-semibold">Categories</h4>
         <div class="flex gap-4">
@@ -32,6 +31,17 @@
             {% endfor %}
         </div>
     </section>
+
+    {% if request.GET.tag %}
+    <div class="flex gap-3 items-center pl-3">
+        <a class="font-bold rounded-lg bg-red-900 hover:bg-red-400" href="{% pageurl page %}">❌</a>
+        <p class="!my-6 text-yellow-500">
+            Results For TAG : 
+            <span class="font-bold text-[12px] text-gray-800 px-2 py-0.5 rounded-lg bg-yellow-500">{{request.GET.tag}}</span>
+        </p>
+    </div>
+
+    {% endif %}
 
     <!-- Blogs -->
     {% if blogs %}
