@@ -149,7 +149,7 @@ class BlogsPage(RoutablePageMixin, Page):
             request,
             template="blog/latest_blogs.html",
             context_overrides={
-                "blogs": self.get_context(request)["blogs"][:num],
+                "blogs": BlogDetailPage.objects.live().public().order_by('-first_published_at')[:num],
             },
         )
 
